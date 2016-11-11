@@ -1,43 +1,29 @@
-# `git bisect` Tutorial
+# `git bisect` Automation Tutorial
 
-Hi There!
+Hi Again!
 
 Wellcome to git bisect toturial, this repository based on [A beginner's guide to GIT BISECT - The process of elimination](http://www.metaltoad.com/blog/beginners-guide-git-bisect-process-elimination) by [Tony Rasmussen](http://www.metaltoad.com/people/tony) and the [Git official documentation](https://git-scm.com/book/en/v2/Git-Tools-Debugging-with-Git). 
 
-### What should I do?
+### How can I automate bisect?
 
-In this repo you will find the file `test.txt`. To make sure the repo is not broken you must ensure that `test.txt` contains the word "boat".
+You surely know how to use `git bisect`, but won't it be easy if you can find it without checking each commit and mark it as "good" or "bad"?
 
-We marked the first good commit, where `test.txt` contains the word "boat" for the first time as `v1.0`, so you can state it as `good`.
-
-Now, we want you to check if `test.txt` contains the word "boat". Please open it in your favorite editor and search for it.
-
-### It not there... well, that was expected ;)
-
-Now you have the option to use `git bisect` to find the broken commit where the "boat" disappeared.
-
-
-To start a binary search for the broken commit, you will have to run:
+Well, it is easy than you may thought. Have a look in `test.sh` file we added here.
 
 ```bash
-$ git bisect start
+$ cat test.sh
+#!/bin/bash -e
+grep -q 'boat' test.txt
 ```
 
-It will start bisect wizard, which will keep changing commits (yes, on your working directory) until you will find the broken commit. If you want to stop it you must run `git bisect reset` if you want to avoid ending up in a weird state.
+This simple script returns success code (return code 0) when it finds "boat" in `test.txt` file, else it will fail (non-zero return code).
 
-You will need to state each commit as `good` or `bad`, and the bisect wizard will change to the next commit. For now we know that the curent commit is `bad` and "v1.0" is `good` (yes, you can give tags as well as commits), so you just run:
+You can start bisect session in one line `git bisect start HEAD v1.0` (first you put the first known bad, then the last known good). Now, you can tell bisect to run the test script
 
 ```bash
-$ git bisect bad
-$ git bisect good v1.0
+$ git bisect run ./test.sh
 ```
 
-Git bisect change your working directory for the first time, check the file again. If it contains "boat" run `git bisect good`, else run `git bisect bad`. Now, do it until git bisect will tells you it found the commit.
+You will find the broken commit in less than a second.
 
-On the broken commit you will find an easter egg for how to automated bisect, Good Luck!
-
-### Thanks
-
-@chenl and @eliadl for all the great work!
-
-
+Don't forget to end bisect session with `git bisect reset`
