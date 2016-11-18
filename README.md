@@ -2,7 +2,7 @@
 
 Hi There!
 
-Wellcome to git bisect toturial, this repository based on [A beginner's guide to GIT BISECT - The process of elimination](http://www.metaltoad.com/blog/beginners-guide-git-bisect-process-elimination) by [Tony Rasmussen](http://www.metaltoad.com/people/tony) and the [Git official documentation](https://git-scm.com/book/en/v2/Git-Tools-Debugging-with-Git). 
+Welcome to git bisect toturial, this repository is based on [A beginner's guide to GIT BISECT - The process of elimination](http://www.metaltoad.com/blog/beginners-guide-git-bisect-process-elimination) by [Tony Rasmussen](http://www.metaltoad.com/people/tony) and the [Git official documentation](https://git-scm.com/book/en/v2/Git-Tools-Debugging-with-Git). 
 
 ### What should I do?
 
